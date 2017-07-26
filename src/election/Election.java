@@ -3,7 +3,7 @@ package election;
 import java.util.ArrayList;
 import java.util.List;
 
-import election.resultat.ResultatElection;
+import election.resultat.ResultsElection;
 import election.resultat.Vote;
 
 /**
@@ -25,11 +25,6 @@ public class Election<T> {
 		this.choix = choix;
 	}
 
-	/**
-	 * 
-	 * @param choix
-	 * @param i
-	 */
 	public Election(List<T> choix, int i) {
 		this(choix);
 		this.ballotNumber = i;
@@ -71,8 +66,8 @@ public class Election<T> {
 	 * 
 	 * @return resultat election
 	 */
-	public ResultatElection<T> getResultat() {
-		return new ResultatElection<T>(votes, choix);
+	public ResultsElection<T> getResultat() {
+		return new ResultsElection<T>(votes, choix);
 	}
 
 	public ElectionStatus getStatus() {

@@ -8,7 +8,7 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
-import election.resultat.ResultatElection;
+import election.resultat.ResultsElection;
 
 public class ElectionTU {
 
@@ -75,7 +75,7 @@ public class ElectionTU {
 		election.vote(ElectionConstantesTest.CHOIX_2);
 
 		/* THEN */
-		ResultatElection<String> result = election.getResultat();
+		ResultsElection<String> result = election.getResultat();
 		Assert.assertNotNull(result);
 		assertEquals(nombreResultat, result.getResult().size());
 	}

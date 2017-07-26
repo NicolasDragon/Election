@@ -11,7 +11,7 @@ import java.util.function.Predicate;
  * @param <T>
  *            choix
  */
-public class ResultatElection<T> {
+public class ResultsElection<T> {
 
 	/**/
 	private final List<ChoiceResult<T>> listeOrdonneeDesResultatsParNombreDeVote;
@@ -22,7 +22,7 @@ public class ResultatElection<T> {
 	 * @param votes
 	 * @param choix
 	 */
-	public ResultatElection(List<Vote<T>> votes, List<T> choix) {
+	public ResultsElection(List<Vote<T>> votes, List<T> choix) {
 		List<ChoiceResult<T>> resultats = getListeResultatNonOrdonnee(votes, choix);
 		resultats.sort(resultatComparator);
 		this.listeOrdonneeDesResultatsParNombreDeVote = resultats;

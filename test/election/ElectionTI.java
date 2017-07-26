@@ -1,9 +1,8 @@
 package election;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
-import election.resultat.ResultatElection;
+import election.resultat.ResultsElection;
 
 import static org.junit.Assert.*;
 
@@ -30,7 +29,7 @@ public class ElectionTI {
 		election.closeElection();
 
 		/* THEN */
-		ResultatElection<String> resultElection = election.getResultat();
+		ResultsElection<String> resultElection = election.getResultat();
 		assertEquals(3, resultElection.getResult().size());
 		assertEquals(ElectionConstantesTest.CHOIX_1, resultElection.getResult().get(0).getChoix());
 		assertEquals(ElectionConstantesTest.CHOIX_2, resultElection.getResult().get(1).getChoix());

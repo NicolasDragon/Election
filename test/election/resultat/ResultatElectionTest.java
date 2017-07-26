@@ -9,7 +9,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import election.resultat.ChoiceResult;
-import election.resultat.ResultatElection;
+import election.resultat.ResultsElection;
 
 public class ResultatElectionTest {
 
@@ -34,7 +34,7 @@ public class ResultatElectionTest {
 		votes.add(new Vote<String>(CHOIX_2));
 
 		/* WHEN */
-		ResultatElection<String> resultatElection = new ResultatElection<String>(votes, choix);
+		ResultsElection<String> resultatElection = new ResultsElection<String>(votes, choix);
 		List<ChoiceResult<String>> result = resultatElection.getResult();
 
 		/* THEN */
@@ -58,7 +58,7 @@ public class ResultatElectionTest {
 		votes.add(new Vote<String>(CHOIX_2));
 
 		/* WHEN */
-		ResultatElection<String> resultatElection = new ResultatElection<String>(votes, choix);
+		ResultsElection<String> resultatElection = new ResultsElection<String>(votes, choix);
 
 		/* THEN */
 		assertEquals(true, resultatElection.aEgalite());
@@ -76,7 +76,7 @@ public class ResultatElectionTest {
 		List<Vote<String>> votes = createVotes();
 
 		/* WHEN */
-		ResultatElection<String> resultatElection = new ResultatElection<String>(votes, choix);
+		ResultsElection<String> resultatElection = new ResultsElection<String>(votes, choix);
 
 		/* THEN */
 		List<ChoiceResult<String>> choixLesPlusVotes = resultatElection.getNChoixLesPlusVotes(nombreDeChoix);
@@ -95,7 +95,7 @@ public class ResultatElectionTest {
 		List<Vote<String>> votes = createVotes();
 
 		/* WHEN */
-		ResultatElection<String> resultatElection = new ResultatElection<String>(votes, choix);
+		ResultsElection<String> resultatElection = new ResultsElection<String>(votes, choix);
 
 		/* THEN */
 		List<ChoiceResult<String>> choixLesPlusVotes = resultatElection.getNChoixLesPlusVotes(nombreDeChoix);
