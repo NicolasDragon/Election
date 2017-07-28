@@ -50,8 +50,8 @@ public class ElectionTU {
 		result.vote(ElectionConstantesTest.CHOICE_1);
 
 		/* THEN */
-		assertEquals(1, result.getVotes().size());
-		assertEquals(ElectionConstantesTest.CHOICE_1, result.getVotes().get(0).getChoix());
+		assertEquals(1, result.getVotesOnTheCurrentBallot().size());
+		assertEquals(ElectionConstantesTest.CHOICE_1, result.getVotesOnTheCurrentBallot().get(0).getChoix());
 	}
 
 	/**
@@ -156,4 +156,6 @@ public class ElectionTU {
 		assertEquals(1, election.getCurrentBallotNumber());
 		assertEquals(ElectionStatus.CLOSE, election.getStatus());
 	}
+
+
 }

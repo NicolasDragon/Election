@@ -16,19 +16,18 @@ import election.resultat.Vote;
  */
 public class Election<T> {
 	// we cant modify it
-	private final List<T> choix;
-	private List<Vote<T>> votes = new ArrayList<Vote<T>>();
+	private final List<T> initialChoices;
 	private ElectionStatus status = ElectionStatus.OPEN;
-	private int ballotNumber = 1;
-	private int currentBallotNumber = ballotNumber;
+	private ElectionBallots<T> electionBallots;
 
-	public Election(List<T> choix) {
-		this.choix = choix;
+	public Election(final List<T> choix) {
+		this.initialChoices = choix;
+		electionBallots = new ElectionBallots<>(choix);
 	}
 
-	public Election(List<T> choix, int i) {
-		this(choix);
-		this.ballotNumber = i;
+	public Election(final List<T> choix, final int i) {
+		this.initialChoices = choix;
+		electionBallots = new ElectionBallots<>(choix, i);
 	}
 
 	/**
@@ -37,19 +36,23 @@ public class Election<T> {
 	 * @return
 	 */
 	public List<T> getChoix() {
-		return choix;
+		return initialChoices;
 	}
 
 	/**
 	 * 
-	 * @param choix
+	 * @param choice
 	 * @throws ElectionClosedException
 	 *             if election is closed
 	 */
-	public void vote(final T choix) throws ElectionClosedException {
+	public void vote(final T choice) throws ElectionClosedException {
 		controlElectionStatus();
-		Vote<T> vote = new Vote<T>(choix);
-		votes.add(vote);
+		Ballot<T> currentBallot = getCurrentBallot();
+		currentBallot.vote(choice);
+	}
+
+	private Ballot<T> getCurrentBallot() {
+		return electionBallots.getCurrentBallot();
 	}
 
 	/**
@@ -63,8 +66,8 @@ public class Election<T> {
 		}
 	}
 
-	public List<Vote<T>> getVotes() {
-		return votes;
+	public List<Vote<T>> getVotesOnTheCurrentBallot() {
+		return getCurrentBallot().getVotes();
 	}
 
 	/**
@@ -73,7 +76,8 @@ public class Election<T> {
 	 * @return resultat election
 	 */
 	public ResultsElection<T> getResultat() {
-		return new ResultsElection<T>(votes, choix);
+		List<Vote<T>> votesFromCurrentBallot = getCurrentBallot().getVotes();
+		return new ResultsElection<T>(votesFromCurrentBallot, initialChoices);
 	}
 
 	public ElectionStatus getStatus() {
@@ -81,7 +85,7 @@ public class Election<T> {
 	}
 
 	public int getBallotNumber() {
-		return ballotNumber;
+		return electionBallots.getBallotNumber();
 	}
 
 	/**
@@ -96,19 +100,20 @@ public class Election<T> {
 	 * increment the current ballotNumber
 	 */
 	public void closeBallot() {
-		if (isElectionWithOneBallot()) {
+		if (electionBallots.isElectionWithOneBallot()) {
 			closeElection();
 		} else {
-			currentBallotNumber++;
+			electionBallots.incrementBallotNumber();
 		}
 	}
 
-	private boolean isElectionWithOneBallot() {
-		return ballotNumber == 1;
+	public int getCurrentBallotNumber() {
+		return electionBallots.getCurrentBallotNumber();
 	}
 
-	public int getCurrentBallotNumber() {
-		return currentBallotNumber;
+	public List<String> getChoicesCurrentBallot() {
+		return null;
+		
 	}
 
 }

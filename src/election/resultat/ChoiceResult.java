@@ -19,7 +19,7 @@ public class ChoiceResult<T> {
 		this.totalVotesNumber = totalVotesNumber;
 	}
 
-	public T getChoix() {
+	public T getChoice() {
 		return choice;
 	}
 

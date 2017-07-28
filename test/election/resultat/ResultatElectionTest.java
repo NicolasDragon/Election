@@ -38,8 +38,8 @@ public class ResultatElectionTest {
 		List<ChoiceResult<String>> result = resultatElection.getResult();
 
 		/* THEN */
-		assertEquals(CHOIX_1, result.get(0).getChoix());
-		assertEquals(CHOIX_2, result.get(1).getChoix());
+		assertEquals(CHOIX_1, result.get(0).getChoice());
+		assertEquals(CHOIX_2, result.get(1).getChoice());
 	}
 
 	/**
