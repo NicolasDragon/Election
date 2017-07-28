@@ -13,7 +13,7 @@ public class ResultatTest {
 		/* GIVEN */
 		long totalVotesCount = 10L;
 		float waitedProportion = 10.0f;
-		ChoiceResult<String> result = new ChoiceResult<String>(1L, ElectionConstantesTest.CHOIX_1, totalVotesCount);
+		ChoiceResult<String> result = new ChoiceResult<String>(1L, ElectionConstantesTest.CHOICE_1, totalVotesCount);
 		/* WHEN */
 		float proportion=result.getChoiceProportion();
 		/* THEN */

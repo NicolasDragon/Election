@@ -102,7 +102,20 @@ public class ResultatElectionTest {
 		assertEquals(3, choixLesPlusVotes.size());
 	}
 	
-	
+	/**
+	 * cas d'une élection où il y a une égalité
+	 * @throws Exception
+	 */
+	@Test
+	public void aEgaliteTest() throws Exception {
+		
+		/* GIVEN */
+		
+
+		/* WHEN */
+
+		/* THEN */
+	}
 	
 	
 	

@@ -17,23 +17,23 @@ public class ElectionTI {
 	 * @throws Exception
 	 */
 	@Test
-	public void testElectionA1Tour() throws Exception {
+	public void electionWithOneBallotTest() throws Exception {
 
 		/* GIVEN */
-		Election<String> election = new Election<>(ElectionConstantesTest.choix);
+		Election<String> election = new Election<String>(ElectionConstantesTest.choices);
 
 		/* WHEN */
-		election.vote(ElectionConstantesTest.CHOIX_1);
-		election.vote(ElectionConstantesTest.CHOIX_2);
-		election.vote(ElectionConstantesTest.CHOIX_1);
+		election.vote(ElectionConstantesTest.CHOICE_1);
+		election.vote(ElectionConstantesTest.CHOICE_2);
+		election.vote(ElectionConstantesTest.CHOICE_1);
 		election.closeElection();
 
 		/* THEN */
 		ResultsElection<String> resultElection = election.getResultat();
 		assertEquals(3, resultElection.getResult().size());
-		assertEquals(ElectionConstantesTest.CHOIX_1, resultElection.getResult().get(0).getChoix());
-		assertEquals(ElectionConstantesTest.CHOIX_2, resultElection.getResult().get(1).getChoix());
-		assertEquals(ElectionConstantesTest.CHOIX_3, resultElection.getResult().get(2).getChoix());
+		assertEquals(ElectionConstantesTest.CHOICE_1, resultElection.getResult().get(0).getChoix());
+		assertEquals(ElectionConstantesTest.CHOICE_2, resultElection.getResult().get(1).getChoix());
+		assertEquals(ElectionConstantesTest.CHOICE_3, resultElection.getResult().get(2).getChoix());
 	}
 
 }

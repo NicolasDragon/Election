@@ -25,17 +25,16 @@ public class ElectionTU {
 	public void creationElectionTest() throws Exception {
 		/* GIVEN */
 		int BALLOT_NUMBER = 2;
-		Election<String> election = new Election<String>(ElectionConstantesTest.choix, BALLOT_NUMBER);
+		Election<String> election = new Election<String>(ElectionConstantesTest.choices, BALLOT_NUMBER);
 
 		assertEquals(3, election.getChoix().size());
-		assertEquals(ElectionConstantesTest.CHOIX_1, election.getChoix().get(0));
+		assertEquals(ElectionConstantesTest.CHOICE_1, election.getChoix().get(0));
 		assertEquals(ElectionStatus.OPEN, election.getStatus());
 		assertEquals(BALLOT_NUMBER, election.getBallotNumber());
 	}
 
 	/**
-	 * cas de vote à une election
-	 * verifie que: <br>
+	 * cas de vote à une election verifie que: <br>
 	 * - le vote est bien enregistré <br>
 	 * - la valeur du vote est bonne <br>
 	 * 
@@ -45,14 +44,14 @@ public class ElectionTU {
 	public void voteTest() throws Exception {
 
 		/* GIVEN */
-		Election<String> result = new Election<String>(ElectionConstantesTest.choix);
+		Election<String> result = new Election<String>(ElectionConstantesTest.choices);
 
 		/* WHEN */
-		result.vote(ElectionConstantesTest.CHOIX_1);
+		result.vote(ElectionConstantesTest.CHOICE_1);
 
 		/* THEN */
 		assertEquals(1, result.getVotes().size());
-		assertEquals(ElectionConstantesTest.CHOIX_1, result.getVotes().get(0).getChoix());
+		assertEquals(ElectionConstantesTest.CHOICE_1, result.getVotes().get(0).getChoix());
 	}
 
 	/**
@@ -66,13 +65,13 @@ public class ElectionTU {
 	public void getResultatTest() throws Exception {
 
 		/* GIVEN */
-		Election<String> election = new Election<String>(ElectionConstantesTest.choix);
+		Election<String> election = new Election<String>(ElectionConstantesTest.choices);
 		int nombreResultat = 3;
 
 		/* WHEN */
-		election.vote(ElectionConstantesTest.CHOIX_1);
-		election.vote(ElectionConstantesTest.CHOIX_1);
-		election.vote(ElectionConstantesTest.CHOIX_2);
+		election.vote(ElectionConstantesTest.CHOICE_1);
+		election.vote(ElectionConstantesTest.CHOICE_1);
+		election.vote(ElectionConstantesTest.CHOICE_2);
 
 		/* THEN */
 		ResultsElection<String> result = election.getResultat();
@@ -89,7 +88,7 @@ public class ElectionTU {
 	public void fermetureElectionTest() throws Exception {
 
 		/* GIVEN */
-		Election<String> election = new Election<>(ElectionConstantesTest.choix);
+		Election<String> election = new Election<>(ElectionConstantesTest.choices);
 
 		/* WHEN */
 		election.closeElection();
@@ -108,11 +107,53 @@ public class ElectionTU {
 	public void voteWhenElectionClosedTest() throws Exception {
 
 		/* GIVEN */
-		Election<String> election = new Election<>(ElectionConstantesTest.choix);
+		Election<String> election = new Election<>(ElectionConstantesTest.choices);
 
 		/* WHEN */
 		election.closeElection();
-		election.vote(ElectionConstantesTest.CHOIX_1);
+		election.vote(ElectionConstantesTest.CHOICE_1);
 
+	}
+
+	/**
+	 * election with two ballots <br>
+	 * verify : <br>
+	 * - by closing, the current Ballot Number change
+	 *
+	 * @throws Exception
+	 */
+	@Test
+	public void closeFirstBallotTest() throws Exception {
+		/* GIVEN */
+		int CURRENT_BALLOT_NUMBER_EXPECTED = 2;
+		Election<String> election = new Election<>(ElectionConstantesTest.choices, 2);
+
+		/* WHEN */
+		election.closeBallot();
+
+		/* THEN */
+		assertEquals(CURRENT_BALLOT_NUMBER_EXPECTED, election.getBallotNumber());
+	}
+
+	/**
+	 * election with one ballot. verifiy : <br>
+	 * - the close of the only ballot close the election <br>
+	 * - the close of the ballot doesn't increment
+	 * {@link Election#getCurrentBallotNumber()}
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void closeBallotForElectionWithOneBallotTest() throws Exception {
+
+		/* GIVEN */
+		int TOTAL_BALLOT_NUMBER = 1;
+		Election<String> election = new Election<>(ElectionConstantesTest.choices, TOTAL_BALLOT_NUMBER);
+		/* WHEN */
+		election.closeBallot();
+
+		/* THEN */
+		assertEquals(1, election.getCurrentBallotNumber());
+		assertEquals(ElectionStatus.CLOSE, election.getStatus());
 	}
 }

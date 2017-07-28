@@ -12,7 +12,7 @@ import election.resultat.Vote;
  * @author MSI
  *
  * @param <T>
- *            class of choice
+ *            class representing the choice
  */
 public class Election<T> {
 	// we cant modify it
@@ -20,6 +20,7 @@ public class Election<T> {
 	private List<Vote<T>> votes = new ArrayList<Vote<T>>();
 	private ElectionStatus status = ElectionStatus.OPEN;
 	private int ballotNumber = 1;
+	private int currentBallotNumber = ballotNumber;
 
 	public Election(List<T> choix) {
 		this.choix = choix;
@@ -51,6 +52,11 @@ public class Election<T> {
 		votes.add(vote);
 	}
 
+	/**
+	 * check if election is still open otherwise throw an exception
+	 * 
+	 * @throws ElectionClosedException
+	 */
 	private void controlElectionStatus() throws ElectionClosedException {
 		if (status.equals(ElectionStatus.CLOSE)) {
 			throw new ElectionClosedException();
@@ -78,8 +84,31 @@ public class Election<T> {
 		return ballotNumber;
 	}
 
+	/**
+	 * modify the status of the election
+	 */
 	public void closeElection() {
 		status = ElectionStatus.CLOSE;
+	}
+
+	/**
+	 * close the current ballot <br>
+	 * increment the current ballotNumber
+	 */
+	public void closeBallot() {
+		if (isElectionWithOneBallot()) {
+			closeElection();
+		} else {
+			currentBallotNumber++;
+		}
+	}
+
+	private boolean isElectionWithOneBallot() {
+		return ballotNumber == 1;
+	}
+
+	public int getCurrentBallotNumber() {
+		return currentBallotNumber;
 	}
 
 }
